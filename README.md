@@ -74,6 +74,11 @@ For Swagger, use an example request body below:
 ```
 
 ## Example Output
+### Using Swagger UI
+Below is a preview of the Swagger UI with output:
+![Swagger UI Screenshot](assets/stock_prediction_api_screenshot.png)
+
+### Using CLI
 ```
 Command: python run.py MSFT
 [INFO] Validating ticker: MSFT
