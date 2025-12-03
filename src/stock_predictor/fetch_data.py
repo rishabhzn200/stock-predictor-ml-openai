@@ -11,7 +11,6 @@ def get_stock_data(ticker, period="1y"):
     """
     logger.info(f"Downloading {ticker} data for period={period}...")
     df = yf.download(ticker, period=period, progress=False)
-    print(f"[INFO] Download complete. Rows: {len(df)}")
 
     # Ensure we have a DataFrame with data
     if df is None or df.empty:

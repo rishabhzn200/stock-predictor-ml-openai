@@ -17,3 +17,5 @@ dependencies:
       - requests
       - joblib
       - ta
+      - fastapi
+      - uvicorn[standard]

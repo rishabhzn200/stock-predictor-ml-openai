@@ -55,7 +55,6 @@ def main():
         logger.error(f"Failed to run prediction for {ticker}: {e}")
         sys.exit(1)
 
-    print("[RUN] Prediction complete.")
     logger.info(f"Prediction: {'UP' if pred == 1 else 'DOWN'}")
     logger.info(f"Indicators: {indicators}")
 

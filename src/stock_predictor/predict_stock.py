@@ -28,13 +28,17 @@ def predict_stock(ticker):
     model_path = Path(MODEL_PATH)
     if model_path.exists():
         logger.info("Loading existing model...")
-        model = load_model()
+        model = load_model(MODEL_PATH)
     else:
         logger.info("Training new model...")
         model = train_model(df, FEATURES)
 
     latest = df[FEATURES].iloc[[-1]]
     pred = predict(model, latest)[0]
-    latest_dict = latest.to_dict(orient="records")[0]
+
+    # Convert indicators to a JSON-friendly dict (string keys, float values)
+    latest_raw = latest.to_dict(orient="records")[0]
+    indicators = {str(k): float(v) for k, v in latest_raw.items()}
+
     logger.info(f"Prediction complete for {ticker}.")
-    return pred, latest_dict
+    return pred, indicators

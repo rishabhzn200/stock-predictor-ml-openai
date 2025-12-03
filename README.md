@@ -1,44 +1,76 @@
 # Stock Predictor (Machine Learning + OpenAI Explanation)
 
 ## Overview
-This project builds a complete end-to-end pipeline that predicts whether a stock’s price will move up or down the next day for a given stock ticker. It uses real market data from yfinance, machine-learning classification, and an LLM integration to generate a human-readable explanation for prediction.
+This project implements a complete end-to-end system for stock movement prediction. It takes a stock ticker as an input and predicts whether the price will go up or down the next day. The pipeline includes data ingestion, feature engineering, machine-learning classification, and an optional AI-generated explanation.
 
-## Features
-- Fetches historical stock data using yfinance
-- Computes technical indicators: RSI, EMA-10, EMA-50, MACD
-- Trains a RandomForestClassifier to classify next-day movement
-- Automatically saves/loads the model for future predictions
-- Uses the modern OpenAI API (OpenAI()) to produce a natural-language explanation
-- Modular and extendable Python project structure
+## Key Features:
+- Real market data ingestion using yfinance (historical OHLCV data).
+- Technical indicator computation such as RSI, EMA-10, EMA-50, and MACD.
+- Machine-learning model (Random Forest classifier) trained to predict next-day price direction.
+- AI explanation layer using an LLM to summarize indicators and trends in simple language. 
+- Reusable prediction pipeline, automatically training a new model if none exists.
+- FastAPI service layer exposing /analyze and /health endpoints.
+- Interactive API documentation provided via Swagger/OpenAPI at /docs.
 
 ## Technologies Used
 
 - Python 
 - pandas, numpy
 - scikit-learn
+- FastAPI
 - yfinance
 - OpenAI API (>=1.0 client)
 - Logging for clean trace output
 
 ## Running the Project
 
-- Install dependencies from environment.yml:
+### Install dependencies from environment.yml:
 ```
 conda env create -f environment.yml
 conda activate stock_predictor_env
 ```
 
 
-- Set your OpenAI API key:
+### Set your OpenAI API key:
 ```
 export OPENAI_API_KEY="openapi_key_here"
 ```
 
 
-- Run the prediction script:
+### Run the prediction script using CLI:
 ```
 cd src
 python run.py AAPL
+```
+
+### Run FastAPI
+```
+cd src
+uvicorn api_main:app --reload
+```
+
+The API will start at:
+```
+http://127.0.0.1:8000
+```
+
+Swagger UI is available at:
+```
+http://127.0.0.1:8000/docs
+```
+
+/analyze endpoint can be used either using swagger or curl
+```
+For Curl, use command below:
+curl -X POST "http://127.0.0.1:8000/analyze" \
+    -H "Content-Type: application/json" \
+    -d '{"ticker": "AAPL", "explain": false}'
+
+For Swagger, use an example request body below:
+{
+    "ticker": "AAPL",
+    "explain": true
+}
 ```
 
 ## Example Output
@@ -49,10 +81,8 @@ Command: python run.py MSFT
 [INFO] Running prediction for MSFT...
 [INFO] Downloading MSFT data for period=2y...
 [INFO] Download complete. Rows: 500
-[INFO] Download complete. Rows: 500
 [INFO] Loading existing model...
 [INFO] Prediction complete for MSFT.
-[RUN] Prediction complete.
 [INFO] Prediction: UP
 [INFO] Indicators: {'RSI': 38.8474210902874, 'EMA_10': 487.6570394488056, 'EMA_50': 502.92834301491445, 'MACD': -8.408960787525189}
 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
