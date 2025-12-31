@@ -1,24 +1,49 @@
-name: stock_predictor_env
+name: agentic_stock_analysis_env
 channels:
   - conda-forge
   - defaults
+
 dependencies:
+  # ---- Python ----
   - python=3.10
-  - pandas
+
+  # ---- Core data / ML ----
   - numpy
+  - pandas
   - scikit-learn
   - matplotlib
+  - joblib
+
+  # ---- Dev / notebooks ----
   - jupyter
+
+  # ---- Web / API ----
+  - fastapi
+  - uvicorn
+
+  # ---- Utilities ----
+  - requests
+  - pydantic
+  - python-dotenv
+
+  # ---- pip-only packages ----
   - pip
   - pip:
+      # Market data
       - yfinance
-      - openai
-      - streamlit
-      - requests
-      - joblib
+      - yahoo_fin
+
+      # Technical indicators
       - ta
-      - fastapi
-      - uvicorn[standard]
-      - langgraph
+
+      # LLM / Agents
+      - openai
+      - langchain
       - langchain-openai
-      - requests
+      - langgraph
+
+      # UI 
+      - streamlit
+
+      # Uvicorn extras
+      - uvicorn[standard]

@@ -66,7 +66,7 @@ flowchart TD
 ### Install dependencies from environment.yml:
 ```
 conda env create -f environment.yml
-conda activate stock_predictor_env
+conda activate agentic_stock_analysis_env
 ```
 
 
@@ -81,13 +81,13 @@ export NEWSAPI_API_KEY="newsapi_key"
 ### Run the prediction script using CLI:
 ```
 cd src
-python run.py AAPL
+python cli.py AAPL --train-if-missing --no-explain
 ```
 
 ### Run FastAPI
 ```
 cd src
-uvicorn api_main:app --reload
+uvicorn agentic_stock_analysis.api.main:app --reload
 ```
 
 The API will start at:

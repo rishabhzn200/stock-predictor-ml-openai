@@ -9,3 +9,11 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+
+# ML artifacts & data
+src/agentic_stock_analysis/ml/artifacts/
+src/agentic_stock_analysis/ml/data/
+
+# Binary formats
+*.pkl
+*.parquet

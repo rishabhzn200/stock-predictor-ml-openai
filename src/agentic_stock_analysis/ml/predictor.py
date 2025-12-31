@@ -1,9 +1,9 @@
 import logging
 from pathlib import Path
 
-from .fetch_data import get_stock_data
+from ..services.fetch_data import get_stock_data
 from .features import compute_features
-from .model import load_model, train_model, predict, MODEL_PATH
+from .model import get_model
 
 logger = logging.getLogger(__name__)
 
@@ -24,17 +24,11 @@ def predict_stock(ticker):
     df = get_stock_data(ticker, period="2y")
     df = compute_features(df)
 
-    # Try to load an existing model; if not found, train a new one
-    model_path = Path(MODEL_PATH)
-    if model_path.exists():
-        logger.info("Loading existing model...")
-        model = load_model(MODEL_PATH)
-    else:
-        logger.info("Training new model...")
-        model = train_model(df, FEATURES)
+    # Try to load an existing model
+    model = get_model()
 
     latest = df[FEATURES].iloc[[-1]]
-    pred = predict(model, latest)[0]
+    pred = model.predict(latest)[0]
 
     # Convert indicators to a JSON-friendly dict (string keys, float values)
     latest_raw = latest.to_dict(orient="records")[0]
