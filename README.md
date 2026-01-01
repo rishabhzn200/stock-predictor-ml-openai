@@ -70,11 +70,20 @@ conda activate agentic_stock_analysis_env
 ```
 
 
-### Set your OpenAI API key:
+### Set your API keys:
+APIs used --> OpenAI, NewsAPI, StockNewsAPI, LangChain(Optional)
 ```
+## Mandatory to set
 export OPENAI_API_KEY="openapi_key"
-export NEWS_PROVIDER=newsapi
+export NEWS_PROVIDERS="stocknews,newsapi"
 export NEWSAPI_API_KEY="newsapi_key"
+export STOCKNEWS_API_KEY="stockapi_key"
+
+## Optional
+export STOCKNEWS_ITEMS=3 # otherwise use default 20
+export LANGCHAIN_TRACING_V2="true"
+export LANGCHAIN_API_KEY="langchain api key"
+export LANGCHAIN_PROJECT="project name for debugging"
 ```
 
 

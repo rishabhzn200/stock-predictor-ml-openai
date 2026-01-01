@@ -11,6 +11,6 @@ def news_node(state: AgentState) -> AgentState:
     terms = state.get("news_search_terms") or [ticker]
 
     logger.info(f"[agent] news_node ticker={ticker}")
-    provider_used, items = get_news_items(ticker=ticker, terms=terms, limit=5)
+    provider_used, items = get_news_items(ticker=ticker, terms=terms, limit=10)
 
     return {"news_provider": provider_used, "news_items": items}
